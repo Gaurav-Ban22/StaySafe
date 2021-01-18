@@ -26,8 +26,13 @@ sprites = [yesmask, nomask, nowashyesmask, nowashnomask]
 
 def render_board():
 
-    for val in sprite_list:
-        win.blit(sprites[val['sprite']], (val['xpos'], val['ypos']))       
+    print("rendering")
+
+    win.fill((0,0,0))
+
+    for item in sprite_list:
+        win.blit(sprites[item['sprite']], (item['xpos'], item['ypos']))   
+    pygame.display.update()    
     
 
 
@@ -123,14 +128,13 @@ print(sprite_list)
     
 
 
-pygame.display.update()
+
 
 
 run = True
+click=False
 while run:
     pygame.time.delay(100)
-    # cl.detectclick()
-    
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -138,24 +142,49 @@ while run:
         if event.type == pygame.MOUSEBUTTONDOWN:
             a, b = event.pos
             for i,val in enumerate(sprite_list):
-                print(i)
-                os = sprite_list[i]['sprite'].replace('"',"")
-                os_real = os.replace("'","")
-                if os_real.get_rect(topleft=(i.xpos, i.ypos)).collidepoint(a,b) == True:
-                    if sprite_list[i]['sprite'] == "yesmask":
-                        print("yesmask clicked")
-
-            # f = yesmask.get_rect(topleft=(x,y))
-            # if f.collidepoint(a, b) == True:
-            #     print("Yee")
             
-# for possibly later use
+                # os = sprite_list[i]['sprite'].replace('"',"")
+                # os_real = os.replace("'","")
+                if sprites[val["sprite"]].get_rect(topleft=(val['xpos'], val['ypos'])).collidepoint(a,b) == True:
+                    print(val["sprite"])
+                    click = True
 
-# for event in pygame.event.get():
-#     if event.type == pygame.MOUSEBUTTONDOWN:
-#         a, b = event.pos
-#         if masktype.get_rect(topleft=(x, y)).collidepoint(a, b) == True:
-#             print("yee haw")
+
+
+                    while click:
+
+                        for event in pygame.event.get():
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_ESCAPE:
+                                    click = False
+                                    
+                                if val["sprite"] == 1 and event.key == pygame.K_m:
+                                    val["sprite"] = 0
+                                    render_board()
+                                    click = False
+                                    
+
+                                if val["sprite"] == 2 and event.key == pygame.K_w:
+                                    val["sprite"] = 0
+                                    render_board()
+                                    click = False
+                                
+                                if val["sprite"] == 3 and event.key == pygame.K_m:
+                                    val["sprite"] = 2
+                                    render_board()
+                                    click = False
+                                
+                                if val["sprite"] == 3 and event.key == pygame.K_w:
+                                    val["sprite"] = 1
+                                    render_board()
+                                    click = False
+
+                    print('**************************')
+                    print(sprite_list)
+
+                    
+                        
+
 
 
 
