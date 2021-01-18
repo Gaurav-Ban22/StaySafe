@@ -47,8 +47,8 @@ def render_board():
 
 
 #creating a sprite list and rendering it as a board using the render_board() function.
-for y in range(0, 576, 64):
-    for x in range(576, 0, -64):
+for y in range(0, 448, 64):
+    for x in range(448, 0, -64):
         j = random.randint(0,3)
 
         sprite_list.append({"sprite": j, "xpos": x, "ypos": y})  
