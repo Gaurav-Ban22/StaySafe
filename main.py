@@ -3,6 +3,9 @@ import random
 
 
 pygame.init()
+pygame.font.init()
+
+winfont = pygame.font.SysFont('Comic Sans MS', 30)
 
 win = pygame.display.set_mode((512, 512))
 
@@ -21,13 +24,25 @@ sprites = [yesmask, nomask, nowashyesmask, nowashnomask]
 def render_board():
     """ renders the sprites in a board. """
 
+    counter = True
+
     print("rendering")
 
     win.fill((0,0,0))
 
     for item in sprite_list:
-        win.blit(sprites[item['sprite']], (item['xpos'], item['ypos']))   
-    pygame.display.update()    
+        win.blit(sprites[item['sprite']], (item['xpos'], item['ypos']))  
+        if item["sprite"] != 0:
+            counter = False
+
+    pygame.display.update()   
+
+    if counter: 
+        win.fill((0,0,0))
+        textsurface = winfont.render('You did it!', False, (255, 255, 0))
+        win.blit(textsurface, (200, 200))
+        pygame.display.update() 
+
     
 
 
